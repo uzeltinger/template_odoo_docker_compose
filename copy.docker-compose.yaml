@@ -3,17 +3,22 @@ services:
   web:
     container_name: ${WEB_HOST}
     image: ${WEB_IMAGE_NAME}:${WEB_IMAGE_TAG}
+    environment:
+      - HOST=${WEB_DB_HOST}
+      - PORT=${WEB_DB_PORT}
+      - USER=${WEB_DB_USER}
+      - PASSWORD=${WEB_DB_PASSWORD}
     build: ./
     depends_on:
       - db
     ports:
       - "${WEB_PORT}:8069"
     volumes:
-      - odoo-web-data:/var/lib/odoo
-      - ./config:/etc/odoo
-      - ./addons:/mnt/extra-addons
-      - ./addons-customize:/mnt/extra-addons-customize
-    entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
+      - ./var-lib-odoo:/var/lib/odoo
+      - ./etc-odoo:/etc/odoo
+      - ./mnt-extra-addons:/mnt/extra-addons
+      - ./mnt-extra-addons-customize:/mnt/extra-addons-customize
+    #entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
   db:
     container_name: ${DB_HOST}
     image: ${DB_IMAGE}:${DB_TAG}
@@ -25,7 +30,7 @@ services:
     ports:
       - "${DB_PORT}:5432"
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
+      - ./odoo-db-pgdata:/var/lib/postgresql/data/pgdata
 volumes:
-  odoo-db-data:
-  odoo-web-data:
+  odoo-db-pgdata:
+  var-lib-odoo:
