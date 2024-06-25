@@ -1,4 +1,2 @@
 config/odoo.conf
-docker-compose.yaml
-.env
 __pycache__/
