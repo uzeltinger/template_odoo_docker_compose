@@ -8,6 +8,7 @@ services:
       - PORT=${WEB_DB_PORT}
       - USER=${WEB_DB_USER}
       - PASSWORD=${WEB_DB_PASSWORD}
+      - DB=${POSTGRES_DB}
     build: ./
     ports:
       - "${WEB_PORT}:8069"
