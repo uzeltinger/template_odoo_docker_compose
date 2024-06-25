@@ -9,8 +9,6 @@ services:
       - USER=${WEB_DB_USER}
       - PASSWORD=${WEB_DB_PASSWORD}
     build: ./
-    depends_on:
-      - db
     ports:
       - "${WEB_PORT}:8069"
     volumes:
