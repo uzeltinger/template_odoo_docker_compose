@@ -18,5 +18,16 @@ services:
       - /odoo-volumes/mnt-extra-addons:/mnt/extra-addons
       - /odoo-volumes/mnt-extra-addons-customize:/mnt/extra-addons-customize
     #entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /nginx-volumes/etc-nginx-conf:/etc/nginx/conf.d
+      - /nginx-volumes/etc-nginx-ssl:/etc/nginx/ssl
+      - /nginx-volumes/var-www-html:/var/www/html
 volumes:
   var-lib-odoo:
